@@ -51,7 +51,7 @@ std::string encode(char* data, int data_size) {
         int sequence = get_bit_sequence(data, 3);
         result += encode_three_bytes(sequence);
         data += 3;
-	}
+    }
 
     if (data_size % 3 == 1) {
         int sequence = get_bit_sequence(data, 1);
@@ -71,7 +71,8 @@ std::string encode(char* data, int data_size) {
     return result;
 }
 
-void process_four_b64(const std::string& letters, std::vector<unsigned char>* result) {
+void process_four_b64(const std::string& letters,
+                            std::vector<unsigned char>* result) {
     int sequence = 0;
     int byte_count = 3;
 
