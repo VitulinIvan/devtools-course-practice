@@ -4,9 +4,7 @@
 #include <string>
 #include <vector>
 
-using namespace std;
-
-string cd = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+char cd[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
 
 unsigned char get_byte_from_digit(int sequence, int byte_pos) {
     return (sequence >> ((byte_pos - 1) * 8)) & 0xFF;
@@ -21,8 +19,8 @@ int remove_six_bits_from_digit(int sequence, int position_first_bit) {
     return sequence % power;
 }
 
-string encode_three_bytes(int sequence) {
-    string result;
+std::string encode_three_bytes(int sequence) {
+    std::string result;
 
     for (int bit_length = 24; bit_length != 0; bit_length -= 6) {
         char code = cd[get_six_bits_from_digit(sequence, bit_length)];
@@ -44,8 +42,8 @@ int get_bit_sequence(char* data, int size) {
     return sequence;
 }
 
-string encode(char* data, int data_size) {
-    string result = "";
+std::string encode(char* data, int data_size) {
+    std::string result = "";
 
     int round_data_size = data_size / 3;
 
@@ -73,7 +71,7 @@ string encode(char* data, int data_size) {
     return result;
 }
 
-void process_four_b64(const string& letters, vector<unsigned char>& result) {
+void process_four_b64(const std::string& letters, std::vector<unsigned char>* result) {
     int sequence = 0;
     int byte_count = 3;
 
@@ -92,10 +90,12 @@ void process_four_b64(const string& letters, vector<unsigned char>& result) {
             }
         }
 
-        size_t code = cd.find(letters[i]);
-
-        if (code == cd.npos) {
-              // ("This string is not Base64");
+        size_t code = 0;
+        for (int j = 0; j < 64; ++j) {
+            if (letters[i] == cd[j]) {
+                code = j;
+                break;
+            }
         }
 
         sequence <<= 6;
@@ -104,18 +104,18 @@ void process_four_b64(const string& letters, vector<unsigned char>& result) {
 
     for (int i = byte_count; i > 0; --i) {
         unsigned char byt = get_byte_from_digit(sequence, i);
-        result.push_back(byt);
+        result->push_back(byt);
     }
 }
 
-vector<unsigned char> decode(const string& encoded_string) {
+std::vector<unsigned char> decode(const std::string& encoded_string) {
     if (encoded_string.size() % 4 != 0)
-        return vector<unsigned char>();
+        return std::vector<unsigned char>();
 
-    vector<unsigned char> result;
+    std::vector<unsigned char> result;
 
     for (int i = 0; i < encoded_string.size(); i += 4)
-        process_four_b64(encoded_string.substr(i, 4), result);
+        process_four_b64(encoded_string.substr(i, 4), &result);
 
     return result;
 }
