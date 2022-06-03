@@ -1,4 +1,4 @@
-//Copyright 2022 Vitulin Ivan
+// Copyright 2022 Vitulin Ivan
 
 #include "include/B64.h"
 
