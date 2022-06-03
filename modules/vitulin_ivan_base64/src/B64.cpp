@@ -45,8 +45,6 @@ int get_bit_sequence(char* data, int size) {
 string encode(char* data, int data_size) {
     string result = "";
 
-    int bit_length = data_size * 8;
-
     int round_data_size = data_size / 3;
 
     for (int i = 0; i < round_data_size; ++i) {
