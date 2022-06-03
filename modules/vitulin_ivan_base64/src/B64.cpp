@@ -1,10 +1,12 @@
 // Copyright 2022 Vitulin Ivan
 
 #include "include/B64.h"
+#include <string>
+#include <vector>
 
 using namespace std;
 
-string codes = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+string cd = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
 
 unsigned char get_byte_from_digit(int sequence, int byte_pos) {
     return (sequence >> ((byte_pos - 1) * 8)) & 0xFF;
@@ -23,10 +25,10 @@ string encode_three_bytes(int sequence) {
     string result;
 
     for (int bit_length = 24; bit_length != 0; bit_length -= 6) {
-        char code = codes[get_six_bits_from_digit(sequence, bit_length)];
+        char code = cd[get_six_bits_from_digit(sequence, bit_length)];
         result += code;
         sequence = remove_six_bits_from_digit(sequence, bit_length);
-	}
+    }
 
     return result;
 }
@@ -37,7 +39,7 @@ int get_bit_sequence(char* data, int size) {
     for (int i = 0; i < size; ++i) {
         sequence <<= 8;
         sequence += data[i];
-	}
+    }
 
     return sequence;
 }
@@ -59,19 +61,19 @@ string encode(char* data, int data_size) {
         result += encode_three_bytes(sequence);
         result[result.size() - 1] = '=';
         result[result.size() - 2] = '=';
-	}
+    }
 
-	if (data_size % 3 == 2) {
+    if (data_size % 3 == 2) {
         int sequence = get_bit_sequence(data, 2);
         sequence <<= 8;
         result += encode_three_bytes(sequence);
         result[result.size() - 1] = '=';
-	}
+    }
 
     return result;
 }
 
-void process_four_base64_letters(const string& letters, vector<unsigned char>& result) {
+void process_four_b64(const string& letters, vector<unsigned char>& result) {
     int sequence = 0;
     int byte_count = 3;
 
@@ -81,29 +83,29 @@ void process_four_base64_letters(const string& letters, vector<unsigned char>& r
                 sequence >>= 2;
                 byte_count = 2;
                 break;
-			}
+            }
 
             if (i == 2) {
                 sequence >>= 4;
                 byte_count = 1;
                 break;
-			}
-		}
+            }
+        }
 
-        size_t code = codes.find(letters[i]);
+        size_t code = cd.find(letters[i]);
 
-        if (code == codes.npos) {
+        if (code == cd.npos) {
               // ("This string is not Base64");
-		}
+        }
 
         sequence <<= 6;
         sequence += code;
-	}
+    }
 
     for (int i = byte_count; i > 0; --i) {
         unsigned char byt = get_byte_from_digit(sequence, i);
         result.push_back(byt);
-	}
+    }
 }
 
 vector<unsigned char> decode(const string& encoded_string) {
@@ -113,7 +115,7 @@ vector<unsigned char> decode(const string& encoded_string) {
     vector<unsigned char> result;
 
     for (int i = 0; i < encoded_string.size(); i += 4)
-        process_four_base64_letters(encoded_string.substr(i, 4), result);
+        process_four_b64(encoded_string.substr(i, 4), result);
 
     return result;
 }
