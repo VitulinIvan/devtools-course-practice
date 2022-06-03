@@ -15,7 +15,10 @@ int get_six_bits_from_digit(int sequence, int position_first_bit) {
 }
 
 int remove_six_bits_from_digit(int sequence, int position_first_bit) {
-    const int power = pow(2, (position_first_bit - 6));
+    int power = 1;
+    for (int i = 0; i < position_first_bit - 6; ++i) {
+        power *= 2;
+    }
     return sequence % power;
 }
 
@@ -115,7 +118,7 @@ std::vector<unsigned char> decode(const std::string& encoded_string) {
 
     std::vector<unsigned char> result;
 
-    for (int i = 0; i < encoded_string.size(); i += 4)
+    for (unsigned int i = 0; i < encoded_string.size(); i += 4)
         process_four_b64(encoded_string.substr(i, 4), &result);
 
     return result;

@@ -40,8 +40,8 @@ TEST(Vitulin_Ivan_Base64, Base64_decode_test1) {
 
     auto dec_str = decode(test_string);
 
-    for (int i = 0; i < dec_str.size(); ++i) {
-        for (int j = indForResStr; j < exp_s.size(); ++j) {
+    for (unsigned int i = 0; i < dec_str.size(); ++i) {
+        for (unsigned int j = indForResStr; j < exp_s.size(); ++j) {
             if (static_cast<char>(dec_str[i]) != static_cast<char>(exp_s[j])) {
                 nonCorr = true;
                 break;
@@ -67,8 +67,8 @@ TEST(Vitulin_Ivan_Base64, Base64_decode_test2) {
 
     auto dec_str = decode(test_string);
 
-    for (int i = 0; i < dec_str.size(); ++i) {
-        for (int j = indForResStr; j < exp_s.size(); ++j) {
+    for (unsigned int i = 0; i < dec_str.size(); ++i) {
+        for (unsigned int j = indForResStr; j < exp_s.size(); ++j) {
             if (static_cast<char>(dec_str[i]) != static_cast<char>(exp_s[j])) {
                 nonCorr = true;
                 break;
@@ -94,8 +94,8 @@ TEST(Vitulin_Ivan_Base64, Base64_decode_test3) {
 
     auto dec_str = decode(test_string);
 
-    for (int i = 0; i < dec_str.size(); ++i) {
-        for (int j = indForResStr; j < exp_s.size(); ++j) {
+    for (unsigned int i = 0; i < dec_str.size(); ++i) {
+        for (unsigned int j = indForResStr; j < exp_s.size(); ++j) {
             if (static_cast<char>(dec_str[i]) != static_cast<char>(exp_s[j])) {
                 nonCorr = true;
                 break;
