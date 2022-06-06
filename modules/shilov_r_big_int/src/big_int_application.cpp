@@ -1,6 +1,7 @@
 // Copyright 2022 Vitulin Ivan
 
 #include "include/big_int_application.h"
+#include <string>
 
 bool BigIntApplication::readArguments(int argc, const char ** argv) {
     if (argc != 4)
