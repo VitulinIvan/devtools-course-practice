@@ -2,8 +2,7 @@
 
 #include "include/big_int_application.h"
 
-bool BigIntApplication::readArguments(int argc, const char ** argv)
-{
+bool BigIntApplication::readArguments(int argc, const char ** argv) {
     if (argc != 4)
         return false;
 
@@ -12,10 +11,8 @@ bool BigIntApplication::readArguments(int argc, const char ** argv)
     left = BigInt(argv[1]);
     right = BigInt(argv[3]);
 
-    for (size_t i = 0; i < sizeof operators / sizeof operators[0]; ++i)
-    {
-        if (operators[i] == argv[2])
-        {
+    for (size_t i = 0; i < sizeof operators / sizeof operators[0]; ++i) {
+        if (operators[i] == argv[2]) {
             operator_ind = i;
             return true;
         }
@@ -24,11 +21,9 @@ bool BigIntApplication::readArguments(int argc, const char ** argv)
     return false;
 }
 
-std::string BigIntApplication::calculate()
-{
+std::string BigIntApplication::calculate() {
     BigInt big_int_result;
-    switch (operator_ind)
-    {
+    switch (operator_ind) {
     case 0:
         big_int_result = left + right;
         return big_int_result.BigIntToString();
@@ -51,8 +46,7 @@ std::string BigIntApplication::calculate()
     }
 
     bool bool_result;
-    switch (operator_ind)
-    {
+    switch (operator_ind) {
     case 5:
         bool_result = left > right;
         break;
@@ -84,8 +78,7 @@ std::string BigIntApplication::calculate()
         return "It`s false!";
 }
 
-std::string BigIntApplication::operator()(int argc, const char ** argv)
-{
+std::string BigIntApplication::operator()(int argc, const char ** argv) {
     if (!readArguments(argc, argv))
          return "Input error! \n"
                  "Enter an expression with two numbers. Example: 22 * 6.\n"
