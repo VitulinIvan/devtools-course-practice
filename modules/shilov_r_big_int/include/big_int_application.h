@@ -8,17 +8,18 @@
 #include "include/big_int.h"
 
 class BigIntApplication {
-private:
+ private:
     BigInt left;
     BigInt right;
 
-    const std::string operators[11] = { "+", "-", "*", "/", "%", ">", ">=", "<", "<=", "==", "!=" };
+    const std::string operators[11] = { "+", "-", "*", "/", "%", ">", ">=", 
+                                        "<", "<=", "==", "!=" };
     int operator_ind = -1;
 
     bool readArguments(int argc, const char** argv);
     std::string calculate();
-	
-public:
+
+ public:
     std::string operator()(int argc, const char** argv);
 };
 
