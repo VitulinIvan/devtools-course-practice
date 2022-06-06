@@ -12,7 +12,7 @@ class BigIntApplication {
     BigInt left;
     BigInt right;
 
-    const std::string operators[11] = { "+", "-", "*", "/", "%", ">", ">=", 
+    const std::string operators[11] = { "+", "-", "*", "/", "%", ">", ">=",
                                         "<", "<=", "==", "!=" };
     int operator_ind = -1;
 
