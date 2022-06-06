@@ -7,8 +7,6 @@ bool BigIntApplication::readArguments(int argc, const char ** argv) {
     if (argc != 4)
         return false;
 
-    char* end_pointers[] = { " " };
-
     left = BigInt(argv[1]);
     right = BigInt(argv[3]);
 
